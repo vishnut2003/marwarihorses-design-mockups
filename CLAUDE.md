@@ -85,13 +85,19 @@ Define everything once in `assets/css/styles.css` as CSS custom properties on `:
 colors, font families, type scale, spacing scale, radii, shadows, container width.
 Pages consume tokens; they do not invent new hex values or font sizes.
 
-Brand direction (update when the client confirms):
+Brand direction (updated 2026-10-30 after client feedback):
 - Subject: Marwari horses, a Rajasthani breed known for inward-curving ears. The
-  design should feel premium, heritage-rich and trustworthy, not generic equestrian.
-- Palette starting point: warm earth tones (sand, terracotta, deep brown) with a
-  royal accent (deep maroon or gold). Confirm against the client's logo before locking.
-- Typography: Poppins (headings, 500–700) and Inter (body, UI, labels). Client instruction, not
-  a suggestion.
+  design must feel premium and restrained. The client rejected home v1 (dark brown,
+  gold borders, badges, card grids) as "not premium".
+- Reference the client supplied: https://coolmore.com/en/ireland/. Follow its pattern:
+  one premium black canvas with per-section shade variants, white text, muted tan accent,
+  pill buttons, circular prev/next controls with counters, hairlines, oversized light
+  display type, minimal "MENU" header, location-led footer. Home v2 is the model.
+- Palette: premium black family (#070708 to #151517, see home/v2 tokens) with tan accent.
+  The client explicitly rejected dark blue; never use navy. No gold borders, glows,
+  badges or boxed cards.
+- Typography: Poppins (headings, Light 300 at display sizes; 400–500 for small headings)
+  and Inter (body, UI, tracked small-caps labels). Client instruction, not a suggestion.
 - Imagery: large, full-bleed photography. The horses are the hero of every page.
 
 Accessibility baseline even in mockups: readable contrast, visible focus states on
