@@ -26,11 +26,15 @@ Mockups are **static HTML + CSS**, one self-contained file per page, viewable by
 double-clicking the file or via the review index. Rationale: the client needs zero
 tooling to open them, and revisions are fast.
 
-- Plain HTML5 + a shared `assets/css/styles.css` for the design system (tokens, type,
-  components). Page-specific overrides may live in a `<style>` block in that page.
-- Google Fonts via `<link>` is allowed. No other external scripts or stylesheets.
+- Plain HTML5 + one `assets/css/styles.css` per version folder holding the design system
+  (tokens, type, components) and page styles.
+- Fonts: **Poppins for headings, Inter for everything else.** No third font, ever. Load both from
+  Google Fonts via `<link>`. A Google Maps `<iframe>` embed is allowed for the contact map
+  (farm pin: https://maps.app.goo.gl/YDshWHbJhmQ6qsRx9). No other external scripts or stylesheets.
 - Minimal vanilla JS only for things the client must see to understand the design
   (mobile nav toggle, hero slider, gallery lightbox, tabs). No frameworks.
+- Video: the client's own hero/banner video may be used as a background (muted, looped,
+  with a poster image fallback). Store it in `<page>/vN/assets/video/`.
 - Images: use real client-supplied photos from `assets/img/` when available. Until then,
   use clearly labelled placeholders (solid blocks with a caption such as
   "Stallion photo – client to supply"). Never use random stock images that imply a
@@ -40,31 +44,40 @@ tooling to open them, and revisions are fast.
 
 ## Folder layout
 
+Each page gets its own folder, and each design version of that page is a **fully self-contained
+folder** with its own assets. The client opens `index.html` inside a version folder and sees
+everything; nothing is shared across versions, so an approved version can never be changed by
+accident while working on the next one.
+
 ```
 /
 ├── CLAUDE.md
-├── index.html              # Review hub: links to every mockup + version/status
-├── assets/
-│   ├── css/styles.css      # Shared design tokens + components
-│   ├── js/                 # Small vanilla scripts shared across pages
-│   └── img/                # Client-supplied logos, photos, icons
-├── pages/
-│   ├── home.html
-│   ├── about.html
-│   ├── horses.html         # Listing / stud / sale page
-│   ├── horse-detail.html   # Single horse profile template
-│   ├── gallery.html
-│   ├── contact.html
-│   └── ...                 # One file per page in the sitemap
-├── versions/               # Frozen copies of what was sent to the client, e.g. v1/, v2/
 ├── docs/
 │   ├── client-brief.md     # Requirements, brand notes, references the client gave us
 │   ├── sitemap.md          # Agreed list of pages and their status
 │   └── feedback-log.md     # Dated client feedback and what changed in response
-└── exports/                # PNG/PDF exports of pages for WhatsApp/email review
+├── home/
+│   ├── v1/
+│   │   ├── index.html      # The mockup
+│   │   ├── README.md       # Version date, status, open questions, images to supply
+│   │   ├── screenshots/    # PNG exports at 1440 / 768 / 390 for WhatsApp or email review
+│   │   └── assets/
+│   │       ├── css/styles.css
+│   │       ├── js/main.js
+│   │       └── img/        # Logo, photos, grouped in subfolders (hero/, horses/, dogs/ ...)
+│   └── v2/                 # Next round, copied from v1 then revised
+├── about/
+│   └── v1/
+└── ...                     # One folder per page in the sitemap
 ```
 
-Create folders only when a file goes into them. Keep page filenames lowercase-kebab-case.
+Rules:
+- A new version starts as a copy of the previous one (`home/v1` → `home/v2`), then gets edited.
+  Never edit a version that has already been sent to the client.
+- Page folders and version folders are lowercase: `home`, `horse-detail`, `v1`, `v2`.
+- Shared client assets (logo, brand photos) may be duplicated across version folders. Disk space
+  is cheap; a broken reference in a sent mockup is not.
+- `docs/` is created when the first client input or sitemap decision arrives.
 
 ## Design system rules
 
@@ -77,34 +90,35 @@ Brand direction (update when the client confirms):
   design should feel premium, heritage-rich and trustworthy, not generic equestrian.
 - Palette starting point: warm earth tones (sand, terracotta, deep brown) with a
   royal accent (deep maroon or gold). Confirm against the client's logo before locking.
-- Typography: a distinguished serif for headings, a clean sans for body.
+- Typography: Poppins (headings, 500–700) and Inter (body, UI, labels). Client instruction, not
+  a suggestion.
 - Imagery: large, full-bleed photography. The horses are the hero of every page.
 
 Accessibility baseline even in mockups: readable contrast, visible focus states on
 interactive demos, alt text on real images. The client may test with a screen reader
 later and the mockup should not need redesigning.
 
-## Workflow for a new page
+## Workflow for a new page or version
 
 1. Check `docs/sitemap.md` for the page's scope and any notes. If the page is not
    listed, add it with status `draft`.
-2. Build the page in `pages/<name>.html` using existing tokens and components. Reuse
-   header, footer and nav markup from `home.html` exactly; do not fork them.
-3. Open it and check all three breakpoints. Screenshot if asked.
-4. Add or update the card for it in `index.html` with status and date.
-5. Do NOT copy into `versions/` yet. That happens only at a client send.
+2. For a first version, copy the design system (`assets/css/styles.css`) and the header, footer
+   and nav markup from the latest approved version of the home page, so every page matches.
+   For a revision, copy the whole previous version folder to `vN+1` and edit there.
+3. Build in `<page>/vN/index.html`. Keep all images inside `<page>/vN/assets/img/`.
+4. Open it and check all three breakpoints. Screenshot into `<page>/vN/screenshots/` if asked.
+5. Write or update `<page>/vN/README.md`: date, status, what changed, open questions.
 
 ## Workflow for a client review round
 
-1. Freeze: copy the current `index.html`, `pages/` and `assets/` into
-   `versions/vN/` where N is the next integer. Never edit files inside `versions/`.
-2. Export PNGs of each page at desktop and mobile width into `exports/vN/` if the
-   client reviews over WhatsApp or email rather than opening HTML.
-3. Update `index.html` to show "Sent to client: vN, <date>".
-4. After feedback arrives, record it verbatim with the date in `docs/feedback-log.md`,
-   then list the concrete changes made under it. Work on `pages/`, not on `versions/`.
+1. Make sure the version folder's README says `sent-to-client` with the date. From this point
+   the folder is frozen.
+2. Export PNGs at desktop and mobile width into `<page>/vN/screenshots/` if the client reviews
+   over WhatsApp or email rather than opening HTML.
+3. After feedback arrives, record it verbatim with the date in `docs/feedback-log.md`,
+   then list the concrete changes made under it. Make the changes in a new version folder.
 
-Status vocabulary used in `index.html` and `docs/sitemap.md`:
+Status vocabulary used in each version README and `docs/sitemap.md`:
 `draft` → `internal-review` → `sent-to-client` → `revisions` → `approved`.
 An `approved` page is locked. Changes to it require an explicit client request, which
 must be logged in `feedback-log.md` first.
@@ -137,4 +151,4 @@ must be logged in `feedback-log.md` first.
 - Header/footer/nav identical to the other pages.
 - Looks correct at 1440 / 768 / 390 px.
 - No lorem ipsum, no unlabelled placeholder images.
-- Listed in `index.html` and `docs/sitemap.md` with the right status.
+- Has a README in its version folder and is listed in `docs/sitemap.md` with the right status.
