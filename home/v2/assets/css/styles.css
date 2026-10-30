@@ -203,6 +203,7 @@ p { margin: 0; }
 @keyframes scrollLine { 0% { transform: scaleX(0); } 50% { transform: scaleX(1); } 100% { transform: scaleX(0); transform-origin: right; } }
 .hero__ctrls { position: absolute; z-index: 3; right: calc(var(--gutter) + 72px); bottom: 26px; display: flex; gap: 10px; }
 .hero__ctrls .circle { background: rgba(11,11,12,.35); backdrop-filter: blur(6px); }
+.hero__ctrls .circle:hover { background: var(--text); color: var(--bg); border-color: var(--text); }
 
 /* ---------- Showcase slider (Our Horses) ---------- */
 .row-head .h2 { margin-top: 14px; font-size: clamp(1.7rem, 1.2rem + 1.8vw, 2.8rem); max-width: 22ch; }
