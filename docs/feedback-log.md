@@ -20,3 +20,11 @@
 - "Use variant dark colours for all sections." → each section on its own shade.
 - "Make the hero more attractive, overlay darker." → navy multiply tint, vignette, label, facts strip.
 - "Instead of dark blue, make it black. Use a premium black everywhere." → entire palette moved to a warm near-black family; tan accent kept.
+
+## 2026-11-02 — Home page, v1 chosen over v2
+
+**Client said (via Web Spider Solutions):** Client liked the v1 design, but needs one little change: the heading and paragraph content of the v2 hero section should be added to the v1 hero section.
+
+**Our read:** The v1 layout (dark brown, gold, stats strip) is the approved direction. Only the hero copy changes, taking the v2 wording: heading "House of Finest Marwari Horses" and the paragraph "Breeding Marwari horses of uncommon grace, strength and character. Home to more than eighty horses and a growing record of show-ring champions."
+
+**Response:** Home page v3 created as a copy of v1 with only the hero heading and paragraph replaced. Heading keeps v1's type treatment ("Marwari" in gold italic, two lines). v1 and v2 stay frozen for comparison.
